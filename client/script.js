@@ -1,27 +1,3 @@
-// document.addEventListener("DOMContentLoaded", async function () {
-//   const response = await fetch("../assets/statistics.json");
-//   const stats = await response.json();
-
-//   const topWindList = document.getElementById("top-wind");
-//   stats.top_wind.forEach((location) => {
-//     const li = document.createElement("li");
-//     li.textContent = `${location.name}: ${location.wind_speed} m/s`;
-//     topWindList.appendChild(li);
-//   });
-
-//   const topSolarList = document.getElementById("top-solar");
-//   stats.top_solar.forEach((location) => {
-//     const li = document.createElement("li");
-//     li.textContent = `${location.name}: ${location.clouds} W/m²`;
-//     topSolarList.appendChild(li);
-//   });
-
-//   document.getElementById("average-wind").textContent =
-//     stats.average_wind.toFixed(2) + " m/s";
-//   document.getElementById("average-solar").textContent =
-//     stats.average_solar.toFixed(2) + " W/m²";
-// });
-
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const response = await fetch("/stat"); // Fetch from the /stat route instead of directly from the JSON file
@@ -91,8 +67,6 @@ async function loadData() {
 }
 
 loadData();
-
-// insights.js
 
 // Fetch statistics data
 fetch("../assets/statistics.json")
