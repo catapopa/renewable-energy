@@ -28,13 +28,12 @@ def stat():
 
 @app.route('/weather', methods=['GET'])
 def weather_data():
-    hourly_df, daily_df = fetch_weather_data()
+    daily_df = fetch_weather_data()
     
     # Convert to JSON format
-    hourly_json = hourly_df.to_dict(orient='records')
     daily_json = daily_df.to_dict(orient='records')
 
-    return jsonify(hourly=hourly_json, daily=daily_json)
+    return jsonify(daily=daily_json)
 
 if __name__ == "__main__":
     app.run(debug=True)

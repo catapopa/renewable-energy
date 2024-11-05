@@ -7,22 +7,6 @@
   <body>
     <h1>Weather Data</h1>
 
-    <h2>Hourly Data</h2>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Cloud Cover High</th>
-        <th>Wind Speed (100m)</th>
-      </tr>
-      {% for data in hourly_data %}
-      <tr>
-        <td>{{ data.date }}</td>
-        <td>{{ data.cloud_cover_high }}</td>
-        <td>{{ data.wind_speed_100m }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-
     <h2>Daily Data</h2>
     <table>
       <tr>

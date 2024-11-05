@@ -12,7 +12,7 @@ def fetch_weather_data():
     params = {
         "latitude": [46.7667, 44.428, 47.1667, 47.0458, 45.6486, 44.1807, 45.7537],
         "longitude": [23.6, 26.0967, 27.6, 21.9183, 25.6061, 28.6343, 21.2257],
-        "start_date": "2024-11-01",  
+        "start_date": "2023-11-01",  
         "end_date": "2024-11-02",    
         "hourly": ["cloud_cover_high", "wind_speed_100m"],
         "daily": ["sunshine_duration", "wind_speed_10m_max", "shortwave_radiation_sum"],
@@ -22,20 +22,6 @@ def fetch_weather_data():
 
     # Extract hourly and daily data
     response = responses[0]
-
-    # Process hourly data
-    hourly = response.Hourly()
-    hourly_data = {
-        "date": pd.date_range(
-            start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
-            end=pd.to_datetime(hourly.TimeEnd(), unit="s", utc=True),
-            freq=pd.Timedelta(seconds=hourly.Interval()),
-            inclusive="left"
-        ),
-        "cloud_cover_high": hourly.Variables(0).ValuesAsNumpy(),
-        "wind_speed_100m": hourly.Variables(1).ValuesAsNumpy()
-    }
-    hourly_dataframe = pd.DataFrame(data=hourly_data)
 
     # Process daily data
     daily = response.Daily()
@@ -52,4 +38,4 @@ def fetch_weather_data():
     }
     daily_dataframe = pd.DataFrame(data=daily_data)
 
-    return hourly_dataframe, daily_dataframe
+    return daily_dataframe
