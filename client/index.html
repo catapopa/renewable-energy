@@ -9,10 +9,31 @@
       href="{{ url_for('static', filename='styles.css') }}"
     />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
   </head>
   <body>
     <h1>Optimal Renewable Sites in Romania</h1>
-    <div id="map"></div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <div class="container">
+      <section id="map">
+        <div id="map-container"></div>
+      </section>
+      <section id="insights">
+        <h2>Energy Insights</h2>
+        <div class="insight">
+          <h3>Top Wind Locations</h3>
+          <ul id="top-wind"></ul>
+        </div>
+        <div class="insight">
+          <h3>Top Cloud Locations</h3>
+          <ul id="top-solar"></ul>
+        </div>
+        <div class="insight">
+          <h3>Average Wind Speed: <span id="average-wind"></span></h3>
+        </div>
+        <div class="insight">
+          <h3>Average Cloud Coverage: <span id="average-solar"></span></h3>
+        </div>
+      </section>
+    </div>
   </body>
 </html>

@@ -1,14 +1,66 @@
-#map {
-  width: 100vw;
-  height: 90vh;
-  margin: 0 auto;
+/* General Styles */
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  text-align: center; /* Center align all text */
 }
 
-body {
-  margin: 0 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+h1 {
+  margin: 20px 0;
+}
+
+h2 {
+  margin-top: 30px; /* Reduced space above each section title */
+  color: #4caf50; /* Change color for section titles */
+}
+
+/* Flexbox Container */
+.container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between map and insights */
+  align-items: flex-start; /* Align items at the start */
+  padding: 20px; /* Add padding around the container */
+}
+
+/* Main Content */
+#map {
+  flex: 2; /* Map takes twice as much space as insights */
+  height: 70vh; /* Adjust height as needed */
+  margin-right: 20px; /* Space between map and insights */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#map-container {
+  width: 100%; /* Ensure map container takes full width */
+  height: 100%; /* Ensure map container takes full height */
+}
+
+#insights {
+  flex: 1; /* Insights take less space */
+  max-width: 400px; /* Set max width for insights */
+  text-align: left; /* Align text to left */
+}
+
+.insight {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 15px 0; /* Space between insights */
+  padding: 20px;
+}
+
+.insight h3 {
+  margin: 10px 0;
+}
+
+ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove default padding */
+}
+
+li {
+  margin: 5px 0; /* Space between list items */
 }
