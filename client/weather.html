@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Weather Statistics</title>
+  </head>
+  <body>
+    <h1>Weather Data</h1>
+
+    <h2>Hourly Data</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Cloud Cover High</th>
+        <th>Wind Speed (100m)</th>
+      </tr>
+      {% for data in hourly_data %}
+      <tr>
+        <td>{{ data.date }}</td>
+        <td>{{ data.cloud_cover_high }}</td>
+        <td>{{ data.wind_speed_100m }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>Daily Data</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Sunshine Duration</th>
+        <th>Max Wind Speed (10m)</th>
+        <th>Shortwave Radiation Sum</th>
+      </tr>
+      {% for data in daily_data %}
+      <tr>
+        <td>{{ data.date }}</td>
+        <td>{{ data.sunshine_duration }}</td>
+        <td>{{ data.wind_speed_10m_max }}</td>
+        <td>{{ data.shortwave_radiation_sum }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>Statistics</h2>
+    <h3>Hourly Statistics</h3>
+    <p>Average Cloud Cover: {{ statistics.hourly.average_cloud_cover }}</p>
+    <p>Maximum Wind Speed (100m): {{ statistics.hourly.max_wind_speed }}</p>
+
+    <h3>Daily Statistics</h3>
+    <p>
+      Average Sunshine Duration: {{ statistics.daily.average_sunshine_duration
+      }}
+    </p>
+    <p>Maximum Wind Speed (10m): {{ statistics.daily.max_wind_speed }}</p>
+  </body>
+</html>

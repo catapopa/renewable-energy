@@ -67,36 +67,3 @@ async function loadData() {
 }
 
 loadData();
-
-// Fetch statistics data
-fetch("../assets/statistics.json")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    return response.json();
-  })
-  .then((statistics) => {
-    // Process statistics data
-    const topWindList = document.getElementById("top-wind");
-    statistics.top_wind.forEach((location) => {
-      const li = document.createElement("li");
-      li.textContent = `${location.name}: ${location.wind_speed} m/s`;
-      topWindList.appendChild(li);
-    });
-
-    const topCloudList = document.getElementById("top-solar");
-    statistics.top_solar.forEach((location) => {
-      const li = document.createElement("li");
-      li.textContent = `${location.name}: ${location.clouds} W/m²`;
-      topCloudList.appendChild(li);
-    });
-
-    document.getElementById("average-wind").textContent =
-      statistics.average_wind.toFixed(2) + " m/s";
-    document.getElementById("average-solar").textContent =
-      statistics.average_solar.toFixed(2) + " W/m²";
-  })
-  .catch((error) => {
-    console.error("Error fetching statistics:", error);
-  });

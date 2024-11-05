@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify
 import json
 
+from analysis import fetch_weather_data
+
 
 app = Flask(
     __name__,
@@ -23,6 +25,16 @@ def stat():
     with open('../assets/statistics.json') as f:
         statistics = json.load(f)
     return jsonify(statistics)
+
+@app.route('/weather', methods=['GET'])
+def weather_data():
+    hourly_df, daily_df = fetch_weather_data()
+    
+    # Convert to JSON format
+    hourly_json = hourly_df.to_dict(orient='records')
+    daily_json = daily_df.to_dict(orient='records')
+
+    return jsonify(hourly=hourly_json, daily=daily_json)
 
 if __name__ == "__main__":
     app.run(debug=True)
