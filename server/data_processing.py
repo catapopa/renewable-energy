@@ -11,6 +11,14 @@ locations = [
     {"name": "Timisoara", "lat": 45.7489, "lon": 21.2087},
     {"name": "Brasov", "lat": 45.6580, "lon": 25.6012},
     {"name": "Oradea", "lat": 47.0722, "lon": 21.9218},
+    {"name": "Sibiu", "lat": 45.7988, "lon": 24.1548},
+    {"name": "Pitesti", "lat": 44.8577, "lon": 24.8711},
+    {"name": "Bacau", "lat": 46.5820, "lon": 26.9113},
+    {"name": "Targu Mures", "lat": 46.5455, "lon": 24.5579},
+    {"name": "Baia Mare", "lat": 47.6576, "lon": 23.5832},
+    {"name": "Deva", "lat": 45.8730, "lon": 22.9115},
+    {"name": "Focsani", "lat": 45.6980, "lon": 27.1837},
+    {"name": "Resita", "lat": 45.3075, "lon": 21.8924},
 ]
 
 def fetch_weather_data(location):
@@ -18,9 +26,8 @@ def fetch_weather_data(location):
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={location['lat']}&lon={location['lon']}&appid={api_key}&exclude=minutely,hourly,alerts"
     response = requests.get(url)
     data = response.json()
-    print(data)
     wind_speed = data.get('wind', {}).get('speed')
-    clouds = data.get('clouds').get('all')  # Placeholder for solar radiation
+    clouds = data.get('clouds').get('all')
 
     return wind_speed, clouds
 
@@ -28,7 +35,7 @@ def build_dataframe(locations):
     data = []
     for loc in locations:
         wind_speed, clouds = fetch_weather_data(loc)
-        if wind_speed is not None and clouds is not None:  # Only add location if wind data is available
+        if wind_speed is not None and clouds is not None:
             data.append({
                 "name": loc["name"],
                 "lat": loc["lat"],
@@ -50,10 +57,10 @@ def create_network(df):
             distance = ((node_a['lat'] - node_b['lat']) ** 2 + (node_a['lon'] - node_b['lon']) ** 2) ** 0.5
             wind_diff = abs(node_a['wind_speed'] - node_b['wind_speed'])
             
-            # Add an edge if nodes are geographically close and have similar wind speeds
-            if distance < 1 and wind_diff < 2:
-                G.add_edge(node_a['name'], node_b['name'], weight=1 / (distance + wind_diff))
+            if distance < 10 and wind_diff < 5:  # Consider more nodes based on distance and wind difference
+                G.add_edge(node_a['name'], node_b['name'], weight=1 / (distance + 1))  # Adding 1 to avoid division by zero
     return G
+
 
 def analyze_network(G):
     pagerank_scores = nx.pagerank(G)
@@ -77,19 +84,11 @@ def save_statistics_to_json(statistics, filename='../assets/statistics.json'):
         json.dump(statistics, f)
 
 def main():
-    # Step 1: Build the DataFrame
     df = build_dataframe(locations)
-
-    # Step 2: Create the network from the DataFrame
     G = create_network(df)
-
-    # Step 3: Analyze the network
     G = analyze_network(G)
-
-    # Step 4: Calculate statistics
     top_wind, top_solar, avg_wind, avg_solar = calculate_statistics(df)
 
-    # Step 5: Save statistics to JSON
     statistics = {
         "top_wind": top_wind.to_dict(orient='records'),
         "top_solar": top_solar.to_dict(orient='records'),

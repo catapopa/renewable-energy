@@ -17,6 +17,7 @@ locations = [
 ]
 
 def fetch_weather_data():
+    """Fetches weather data from the API and returns a DataFrame with combined data for all locations."""
     cache_session = requests_cache.CachedSession('.cache', expire_after=-1)
     retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
     openmeteo = openmeteo_requests.Client(session=retry_session)
@@ -58,8 +59,9 @@ def fetch_weather_data():
     return combined_daily_data
 
 def plot_weather_data(data):
+    """Plots shortwave radiation and maximum wind speed for each location using Plotly."""
     fig = make_subplots(
-        rows=2, cols=1, vertical_spacing=0.1,
+        rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1,
         subplot_titles=("Shortwave Radiation (kWh/m²)", "Maximum Wind Speed (m/s)")
     )
 
@@ -80,7 +82,7 @@ def plot_weather_data(data):
         fig.add_trace(
             go.Scatter(
                 x=location_data['date'], y=location_data['wind_speed_10m_max'],
-                mode='lines', name=f'{location} Max Wind Speed', line=dict(color=color_palette[i % len(color_palette)], width=2)
+                mode='lines', name=f'{location} Max Wind Speed', line=dict(dash="dot", color=color_palette[i % len(color_palette)], width=2)
             ),
             row=2, col=1
         )
@@ -105,8 +107,6 @@ def plot_weather_data(data):
 
     fig.show()
 
-# Fetch the weather data
+# Fetch and plot data
 weather_data = fetch_weather_data()
-
-# Plot the weather data
 plot_weather_data(weather_data)
