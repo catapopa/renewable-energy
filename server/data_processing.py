@@ -22,7 +22,7 @@ locations = [
 ]
 
 def fetch_weather_data(location):
-    api_key = "cff189176f46e0d3f187335d4acd082e"
+    api_key = "YOUR_API_KEY"
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={location['lat']}&lon={location['lon']}&appid={api_key}&exclude=minutely,hourly,alerts"
     response = requests.get(url)
     data = response.json()
