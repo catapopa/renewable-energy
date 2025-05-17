@@ -81,7 +81,7 @@ Run the data processing scripts to generate statistics and network data:
 
 ```sh
 cd server
-python data_processing.py
+python3 data_processing.py
 ```
 
 This will create/update `assets/statistics.json` and `assets/network_data.json`.
@@ -89,7 +89,7 @@ This will create/update `assets/statistics.json` and `assets/network_data.json`.
 ### 4. Run the Web Server
 
 ```sh
-python app.py
+python3 app.py
 ```
 
 The dashboard will be available at [http://localhost:5000](http://localhost:5000).
