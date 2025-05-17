@@ -36,7 +36,7 @@ server/
 ### 1. Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/romania-renewable-sites.git
+git clone https://github.com/catapopa/romania-renewable-sites.git
 cd romania-renewable-sites
 ```
 
